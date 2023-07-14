@@ -11,7 +11,7 @@ import ReviewsPage from "../components/landing-page/pages/ReviewsPage"
 import ProductPage from "../components/products/ProductPage";
 import Shop from "../components/products/Shop";
 import Cart from "../components/Cart/Cart";
-import CheckoutPayment from "../components/checkout/checkoutPayment";
+import CheckoutPayment from "../components/checkout/CheckoutPayment";
 import Signup from "../components/auth/Signup";
 import About from "../components/landing-page/pages/About"
 export const router = createBrowserRouter(
