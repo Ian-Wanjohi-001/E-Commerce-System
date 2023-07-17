@@ -1,6 +1,6 @@
-import searchicon from "../../assets/search-icon.png";
-import shoppingbagicon from "../../assets/shopping-bag.png";
-import shoppingcart from "../../assets/shopping-cart.png";
+import searchicon from "/search-icon.png";
+import shoppingbagicon from "/shopping-bag.png";
+import shoppingcart from "/shopping-cart.png";
 import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
@@ -9,15 +9,15 @@ const Header = () => {
         <div className="top h-[45px] bg-black "></div>
         <div className="bottom w-full  h-[60px] flex flex-row justify-around items-center">
           <ul className="flex items-center gap-[2rem] cursor-pointer">
-          <NavLink to="/landingpage1">
-  <li>
-    <span className="font-bold text-xl">
-      <span className="text-blue-500">S</span>
-      martBu
-      <span className="text-blue-500">Y</span>
-    </span>
-  </li>
-</NavLink>
+            <NavLink to="/landingpage1">
+              <li>
+                <span className="font-bold text-xl">
+                  <span className="text-blue-500">S</span>
+                  martBu
+                  <span className="text-blue-500">Y</span>
+                </span>
+              </li>
+            </NavLink>
             <NavLink to="/shop">
               <li>Shop</li>
             </NavLink>
@@ -28,7 +28,7 @@ const Header = () => {
               <li>Reviews</li>
             </NavLink>
             <NavLink to="/about">
-            <li>About</li>
+              <li>About</li>
             </NavLink>
             <li>
               <div className="search flex gap-[1rem] items-center text-gray-500">

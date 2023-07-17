@@ -1,11 +1,10 @@
-import paypalImage from "../../assets/paypal.png";
+import paypalImage from "/paypal.png";
 import Header from "../header-footer/header";
 const CheckoutPayment = () => {
   return (
     <>
       <div className="">
         <div className="flex flex-col pt-[10rem]  items-center ">
-
           <div className=" font-semibold text-2xl">Checkout</div>
           <div className="flex gap-[4rem] py-5">
             <div className="">Adress </div>

@@ -1,4 +1,4 @@
-import image2 from "../../assets/IMG-20230711-WA0079.jpg";
+import image2 from "/IMG-20230711-WA0079.jpg";
 const CartBox = () => {
   return (
     <>

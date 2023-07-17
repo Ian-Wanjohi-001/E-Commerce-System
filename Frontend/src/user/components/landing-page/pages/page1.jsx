@@ -1,5 +1,5 @@
+import testImage from "/IMG-20230711-WA0083.jpg";
 import Box from "../../utilities/Box";
-import testImage from "../../../assets/IMG-20230711-WA0083.jpg";
 
 const Page1 = () => {
   return (
