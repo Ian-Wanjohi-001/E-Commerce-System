@@ -61,9 +61,11 @@ const CreateProducts = () => {
           onChange={e => setcategory(e.target.value)}
           className="appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         >
-          <option value="">c1</option>
-          <option value="">c2</option>
-          <option value="">c3</option>
+          <option value="">Jacket</option>
+          <option value="">Hoodies</option>
+          <option value="">Shirts</option>
+          <option value="">Sweaters</option>
+          <option value="">T-Shirts</option>
         </select>
       </div>
       <div className="flex">
