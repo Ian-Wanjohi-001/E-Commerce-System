@@ -1,3 +1,4 @@
+import Header from "../header-footer/header";
 const Signup = () => {
   return (
     <div className="grid grid-cols-3 gap-4 h-screen">
@@ -10,6 +11,7 @@ const Signup = () => {
           <button className="bg-blue-800 text-white rounded p-3">Create Account</button>
         </form>
       </div>
+      <Header/>
     </div>
   );
 };

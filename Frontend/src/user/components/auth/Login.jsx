@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Header from "../header-footer/header";
 
 const Login = () => {
   return (
@@ -33,6 +34,7 @@ const Login = () => {
           </p>
         </form>
       </div>
+      <Header/>
     </div>
   );
 };

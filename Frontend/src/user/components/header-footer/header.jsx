@@ -2,12 +2,13 @@ import searchicon from "/search-icon.png";
 import shoppingbagicon from "/shopping-bag.png";
 import shoppingcart from "/shopping-cart.png";
 import { NavLink } from "react-router-dom";
+
 const Header = () => {
   return (
     <>
-      <div className="header flex  flex-col w-[100vw]  fixed top-0 left-0">
-        <div className="top h-[45px] bg-black "></div>
-        <div className="bottom w-full  h-[60px] flex flex-row justify-around items-center">
+      <div className="header flex flex-col w-full fixed top-0 left-0">
+        <div className="top h-[45px] bg-black"></div>
+        <div className="bottom w-full h-[60px] flex flex-row justify-around items-center">
           <ul className="flex items-center gap-[2rem] cursor-pointer">
             <NavLink to="/landingpage1">
               <li>
@@ -32,16 +33,15 @@ const Header = () => {
             </NavLink>
             <li>
               <div className="search flex gap-[1rem] items-center text-gray-500">
-                {" "}
                 <img
-                  className=" h-[20px] w-[20px]"
+                  className="h-[20px] w-[20px]"
                   src={searchicon}
                   alt="search-icon"
-                />{" "}
+                />
                 <input
                   type="text"
                   placeholder="Search"
-                  className="border p-2 rounded  focus:outline-none"
+                  className="border p-2 rounded focus:outline-none"
                 />
               </div>
             </li>
@@ -67,6 +67,9 @@ const Header = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="body-content mt-20">
+        {/* Your body content here */}
       </div>
     </>
   );

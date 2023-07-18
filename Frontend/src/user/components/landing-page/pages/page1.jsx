@@ -13,13 +13,13 @@ const Page1 = () => {
             Discover the latest trends in fashion, handpicked just for you.
           </div>
         </div>
-        <div className="p-5 grid grid-cols-5 gap-4">
+        {/* <div className="p-5 grid grid-cols-5 gap-4">
           <Box Image={testImage} />
           <Box Image={testImage} />
           <Box Image={testImage} />
           <Box Image={testImage} />
           <Box Image={testImage} />
-        </div>
+        </div> */}
       </div>
     </>
   );
