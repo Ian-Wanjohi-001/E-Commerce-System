@@ -1,33 +1,49 @@
 import React from "react";
+import aboutImage from "./about page.jpg";
 
 const AboutPage = () => {
+  const currentDate = new Date().toLocaleDateString();
+
   return (
-    <div className="bg-gray-100 min-h-screen py-10">
-      <div className="max-w-4xl mx-auto px-4 bg-white rounded-lg shadow-lg py-10">
-        <h1 className="text-4xl font-bold text-center mb-8">About Our Shop</h1>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="flex flex-col justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
-              <p className="text-gray-700 mb-4">
-                Welcome to [Your Shop Name], your one-stop destination for all your shopping needs. At [Your Shop Name], we strive to provide a seamless online shopping experience to our valued customers. With a wide selection of products and a commitment to exceptional customer service, we aim to be your preferred choice for online shopping.
-              </p>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
-              <p className="text-gray-700 mb-4">
-                Our mission is to connect customers with quality products that enhance their lives. We are dedicated to offering a diverse range of products, from trendy fashion pieces to cutting-edge electronics, all carefully curated for your satisfaction. Through our platform, we aim to make shopping convenient, enjoyable, and rewarding for every customer.
-              </p>
-              <h2 className="text-2xl font-semibold mb-4">Our Values</h2>
-              <ul className="list-disc list-inside text-gray-700">
-                <li>Transparency: We believe in fostering trust by providing accurate product information, fair pricing, and transparent policies.</li>
-                <li>Customer Satisfaction: Your satisfaction is our top priority. We are committed to delivering exceptional customer service and ensuring your shopping experience exceeds expectations.</li>
-                <li>Quality Assurance: We carefully select and partner with trusted brands and suppliers to offer you high-quality products that meet our strict quality standards.</li>
-              </ul>
-            </div>
+    <div className="bg-gray-100 min-h-screen">
+      <div className="container mx-auto px-4 py-10 flex flex-col md:flex-row">
+        <div className="md:w-1/2">
+          <nav className="bg-white p-4 rounded-lg shadow-lg mb-8">
+            <h1 className="text-2xl font-bold text-center">About Smart Buy</h1>
+          </nav>
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
+            <p className="text-gray-700 mb-4">
+              Welcome to Smart Buy, your ultimate destination for online shopping. We are dedicated to providing a seamless and enjoyable shopping experience to our valued customers. With a wide range of top-quality products and exceptional customer service, we aim to be your preferred choice for all your shopping needs.
+            </p>
+            <p className="text-gray-700 mb-4">
+              At Smart Buy, we believe in staying ahead of the latest trends and constantly expanding our inventory to meet diverse customer preferences. Our commitment to excellence has earned us a loyal customer base who trust us for their online shopping requirements.
+            </p>
+            <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
+            <p className="text-gray-700 mb-4">
+              Our mission is to provide a curated selection of high-quality products that enhance our customers' lives. We strive to create a user-friendly platform that offers convenience, reliability, and personalized experiences. With a focus on customer satisfaction, secure transactions, and timely delivery, we aim to exceed your expectations at every step.
+            </p>
+            <h2 className="text-2xl font-semibold mb-4">Our Values</h2>
+            <ul className="list-disc list-inside text-gray-700">
+              <li>Customer-centric Approach: We prioritize our customers' needs and provide exceptional service to ensure their satisfaction.</li>
+              <li>Quality Assurance: We source products from trusted brands and suppliers, ensuring high standards of quality and durability.</li>
+              <li>Innovation: We embrace technological advancements to enhance the shopping experience, offering personalized recommendations and seamless navigation.</li>
+              <li>Transparency: We believe in transparency, providing accurate product information, fair pricing, and transparent policies.</li>
+              <li>Community Engagement: We actively engage with our customers, listen to their feedback, and continuously improve our services based on their suggestions.</li>
+            </ul>
           </div>
         </div>
+        <div className="md:w-1/2 flex justify-center">
+          <img
+            src={aboutImage}
+            alt="About Smart Buy"
+            className="h-full object-cover rounded-lg shadow-lg filter brightness-125"
+          />
+        </div>
       </div>
+      <footer className="bg-gray-900 text-white text-center py-4">
+        &copy; {currentDate} Smart Buy. All rights reserved.
+      </footer>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import sql from 'mssql';
-import config from '../DataBase/config.js';
+import config from '../database/config.js';
 
 // Creating a connection pool
 const pool = new sql.ConnectionPool(config.sql);
@@ -8,15 +8,16 @@ const pool = new sql.ConnectionPool(config.sql);
 
 // POST /reviews // create review
 export const createReview = async (req, res) => {
-  const { movie_id, user_id, review_content, rating } = req.body;
+  const { ProductID, CustomerID, ReviewContent, Rating } = req.body;
   let connection;
   try {
     connection = await pool.connect();
-    // Check if there is a similar review by the user
-    const query = `SELECT * FROM Reviews WHERE user_id = @user_id AND review_content = @review_content`;
+    // Check if there is a similar review by the user for the product
+    const query = `SELECT * FROM Reviews WHERE CustomerID = @CustomerID AND ReviewContent = @ReviewContent AND ProductID = @ProductID`;
     const result = await connection.request()
-      .input('user_id', user_id)
-      .input('review_content', review_content)
+      .input('CustomerID', CustomerID)
+      .input('ReviewContent', ReviewContent)
+      .input('ProductID', ProductID)
       .query(query);
 
     if (result.recordset.length > 0) {
@@ -24,25 +25,23 @@ export const createReview = async (req, res) => {
     }
 
     // Insert a new review
-    const insertQuery = `INSERT INTO Reviews (movie_id, user_id, review_content, rating) VALUES (@movie_id, @user_id, @review_content, @rating)`;
+    const insertQuery = `INSERT INTO Reviews (ProductID, CustomerID, ReviewContent, Rating) VALUES (@ProductID, @CustomerID, @ReviewContent, @Rating)`;
     await connection.request()
-      .input('movie_id',sql.Int, movie_id)
-      .input('user_id', sql.Int, user_id)
-      .input('review_content',sql.VarChar, review_content)
-      .input('rating', sql.Int, rating)
+      .input('ProductID', sql.Int, ProductID)
+      .input('CustomerID', sql.Int, CustomerID)
+      .input('ReviewContent', sql.VarChar, ReviewContent)
+      .input('Rating', sql.Int, Rating)
       .query(insertQuery);
 
     res.status(201).json({ message: 'Review created successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
-    console.log(error)
-  }finally {
+    console.log(error);
+  } finally {
     sql.close();
   }
 };
-
-
 
 export const getReviews = async (req, res) => {
   try {
@@ -51,8 +50,8 @@ export const getReviews = async (req, res) => {
     const pool = await sql.connect(config.sql);
     const request = new sql.Request(pool);
 
-    const query = 'SELECT * FROM Reviews WHERE user_id = @user_id';
-    request.input('user_id', sql.Int, user_id);
+    const query = 'SELECT * FROM Reviews WHERE CustomerID = @customer_id';
+    request.input('customer_id', sql.Int, user_id);
 
     const result = await request.query(query);
 
@@ -65,35 +64,29 @@ export const getReviews = async (req, res) => {
   }
 };
 
-
-
 export const deleteReview = async (req, res) => {
   try {
-    const { reviewId } = req.params;
+    const { ReviewID } = req.params; // Updated key to "ReviewID"
 
     const pool = await sql.connect(config.sql);
     const request = new sql.Request(pool);
     // Delete the review from the database
-    await request.input('reviewId', sql.Int, reviewId).query('DELETE FROM Reviews WHERE review_id = @reviewId');
-
-    
-    
+    await request.input('reviewId', sql.Int, ReviewID).query('DELETE FROM Reviews WHERE ReviewID = @reviewId'); // Updated key to "ReviewID"
 
     res.status(200).json({ message: 'Review deleted successfully.' });
   } catch (error) {
     res.status(500).json({ message: 'An error occurred while deleting the review.' });
     console.error('An error occurred while deleting the review:', error);
-    console.log(error)
+    console.log(error);
   } finally {
     sql.close();
   }
 };
 
-
 export const updateReviewContent = async (req, res) => {
   try {
-    const { reviewId } = req.params;
-    const { reviewContent } = req.body;
+    const { ReviewID } = req.params; // Updated key to "ReviewID"
+    const { ReviewContent } = req.body; // Updated key to "ReviewContent"
 
     // Create a connection pool
     const pool = await sql.connect(config.sql);
@@ -101,16 +94,16 @@ export const updateReviewContent = async (req, res) => {
     // Prepare the SQL query
     const query = `
       UPDATE Reviews
-      SET review_content = @reviewContent
-      WHERE review_id = @reviewId
+      SET ReviewContent = @ReviewContent
+      WHERE ReviewID = @ReviewID
     `;
 
     // Create a new request instance
     const request = new sql.Request(pool);
 
     // Set the parameters
-    request.input('reviewId', sql.Int, reviewId);
-    request.input('reviewContent', sql.VarChar, reviewContent);
+    request.input('ReviewID', sql.Int, ReviewID); // Updated key to "ReviewID"
+    request.input('ReviewContent', sql.VarChar, ReviewContent); // Updated key to "ReviewContent"
 
     // Execute the query
     await request.query(query);
@@ -124,3 +117,5 @@ export const updateReviewContent = async (req, res) => {
     sql.close();
   }
 };
+
+

@@ -15,13 +15,13 @@ export const getProducts = async (req, res) => {
 };
 
 export const getProductsByCategory = async (req, res) => {
-  const { category } = req.params;
+  const { CategoryID } = req.params;
 
   try {
     const pool = await sql.connect(config.sql);
     const query = `SELECT * FROM Products 
                    JOIN Categories ON Products.CategoryID = Categories.CategoryID
-                   WHERE Categories.CategoryName LIKE '%${category}%'`;
+                   WHERE Categories.CategoryName LIKE '%${CategoryID}%'`;
     const result = await pool.request().query(query);
 
     res.status(200).json(result.recordset);

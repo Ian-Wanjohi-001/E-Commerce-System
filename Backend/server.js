@@ -5,8 +5,11 @@ import productsRoutes from "./src/routes/productsRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import bodyParser from "body-parser";
 import reviewsRoute from "./src/routes/reviewRoutes.js";
+import cartRoutes from "./src/routes/cartRoutes.js";
+// import orderRoutes from "./src/routes/orderRoutes.js"; // Added orderRoutes
 
 const app = express();
+
 
 // Setting cors
 app.use(
@@ -16,6 +19,7 @@ app.use(
 );
 
 // Middleware
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -23,6 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 productsRoutes(app);
 authRoutes(app);
 reviewsRoute(app);
+cartRoutes(app);
+// orderRoutes(app); // Added orderRoutes
 
 app.get("/", (req, res) => {
   res.send("Hello World 😁");

@@ -7,7 +7,7 @@ const productsRoutes = (app) => {
   app.route('/products/title/:title')
     .get(getProductsByTitle);
 
-  app.route('/products/category/:category')
+  app.route('/products/category/:CategoryID')
     .get(getProductsByCategory);
 };
 
