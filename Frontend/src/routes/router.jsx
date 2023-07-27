@@ -17,6 +17,8 @@ import About from "../user/components/landing-page/pages/About";
 import AuthLayout from "../layouts/AuthLayout";
 import { TopBar } from "../admin/components/TopBar";
 import CreateProducts from "../admin/components/CreateProducts";
+import Customers from "../admin/Customers";
+import Products from "../admin/Products";
 import AdminLayout from "../layouts/AdminLayout";
 import ProductTable from "../admin/components/ViewProducts";
 export const router = createBrowserRouter(
@@ -25,6 +27,8 @@ export const router = createBrowserRouter(
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="" element={<ProductTable />} />
         <Route path="create" element={<CreateProducts />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="products" element={<Products />} />
       </Route>
       <Route path="/" element={<LandingPage1 />} />
       <Route path="/landingpage1" element={<LandingPage1 />} />

@@ -3,16 +3,21 @@ import sql from "mssql";
 
 export const getProducts = async (req, res) => {
   try {
-    let pool = await sql.connect(config.sql);
-    let result = await pool.request().query("SELECT * FROM Products");
+    const pool = await sql.connect(config.sql);
+    const result = await pool.request().query("SELECT * FROM Products");
     res.status(200).json(result.recordset);
+
+    // Close the connection pool after processing the results
+    sql.close();
   } catch (error) {
     res.status(500).json({ message: "An error occurred while fetching products." });
-    console.error("An error occurred while fetching products:", error);
-  } finally {
+    console.log("An error occurred while fetching products:", error);
+
+    // Make sure to close the connection pool in case of an error as well
     sql.close();
   }
 };
+
 
 export const getProductsByCategory = async (req, res) => {
   const { CategoryID } = req.params;
@@ -44,7 +49,7 @@ export const getProductsByTitle = async (req, res) => {
     res.status(200).json(result.recordset);
   } catch (error) {
     res.status(500).json({ message: "An error occurred while fetching products by title." });
-    console.error("An error occurred while fetching products by title:", error);
+    console.log("An error occurred while fetching products by title:", error);
   } finally {
     sql.close();
   }

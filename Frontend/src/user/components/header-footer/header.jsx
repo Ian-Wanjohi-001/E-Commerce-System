@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import CircularProgress from '@mui/material/CircularProgress'; 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Header = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const mappedProductData = useSelector((state) => state.allProducts?.allProducts);
   const [cartItems, setCartItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/products?search=${searchQuery}&title=true`
-      ); // Passing 'title=true' query parameter to search by title
-      const data = await response.json();
-      setSearchResults(data);
-    } catch (error) {
-      console.error("Error fetching search results:", error);
+  const handleSearch = () => {
+    setLoading(true);
+    const filteredProducts = mappedProductData.filter(
+      (product) =>
+        product.ProductName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(filteredProducts);
+    setLoading(false);
+    if (filteredProducts.length === 0) {
+      toast.info("No products found.");
     }
+    setSearchTerm(""); // Clear the search field
+  };
+
+  const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const handleSearchInputKeyPress = (event) => {
@@ -52,7 +64,11 @@ const Header = () => {
       // Handle any errors or show an error message to the user.
     }
   };
-  
+
+  const loaderCss = {
+    display: "block",
+    margin: "0 auto",
+  };
 
   return (
     <>
@@ -85,17 +101,17 @@ const Header = () => {
               <div className="search flex gap-[1rem] items-center text-gray-500">
                 <input
                   type="text"
-                  placeholder="Search"
+                  placeholder="Search by product name..."
                   className="border p-2 rounded focus:outline-none"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  value={searchTerm}
+                  onChange={handleSearchInputChange}
                   onKeyPress={handleSearchInputKeyPress}
                 />
               </div>
             </li>
           </ul>
           <div className="utilities flex items-center gap-4 sm:gap-8">
-            <NavLink to="/cart"> {/* Add the NavLink to the Cart page */}
+            <NavLink to="/cart">
               <div className="bag flex gap-2">
                 <FaShoppingCart className="h-[25px]" />
                 {cartItems.length}
@@ -108,13 +124,17 @@ const Header = () => {
         </div>
       </div>
       <div className="body-content mt-20">
-        {searchResults.length > 0 && (
+        {loading ? (
+          <div className="flex justify-center items-center h-full">
+            <CircularProgress size={35} style={loaderCss} />
+          </div>
+        ) : searchResults.length > 0 ? (
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {searchResults.map((product) => (
                 <div key={product.ProductID} className="bg-white p-4 shadow">
                   <img
-                    src={product.ImageURL}
+                    src={product.imageUrl}
                     alt={product.ProductName}
                     className="w-full h-40 object-contain mb-4"
                   />
@@ -124,12 +144,20 @@ const Header = () => {
                     <p className="text-lg font-bold">${product.Price}</p>
                     <p className="text-gray-500">In Stock: {product.StockQuantity}</p>
                   </div>
-                  <button onClick={() => handleAddToCart(product)} className="bg-blue-800 text-white rounded p-3 mt-4 w-full">
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="bg-blue-800 text-white rounded p-3 mt-4 w-full"
+                  >
                     Add to Cart
                   </button>
                 </div>
               ))}
             </div>
+          </div>
+        ) : (
+          <div className="container mx-auto px-4">
+            {/* Render a toast when there are no search results */}
+            
           </div>
         )}
       </div>

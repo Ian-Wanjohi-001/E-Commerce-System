@@ -19,11 +19,8 @@ export const Sidebar = () => {
         </div>
         <div className="p-4 flex flex-col text-white text-lg ">
           <Link className="mb-[1rem] flex gap-2 items-center"><FaChartBar/> Dashboard</Link>
-          <Link className="mb-[1rem] flex gap-2 items-center"><FaUserFriends/> Customers</Link>
-          <Link className="mb-[1rem] flex gap-2 items-center"><FaTag/> Category</Link>
-          <Link className="mb-[1rem] flex gap-2 items-center"><FaExpandArrowsAlt/>Sizes</Link>
-          <Link className="mb-[1rem] flex gap-2 items-center"><FaCompressArrowsAlt/>Product Sizes</Link>
-          <Link className="mb-[1rem] flex gap-2 items-center"><FaList/>Products</Link>
+          <Link to="customers" className="mb-[1rem] flex gap-2 items-center"><FaUserFriends/> Customers</Link>
+          <Link to="products" className="mb-[1rem] flex gap-2 items-center"><FaList/>Products</Link>
           <Link to="create" className="flex gap-2 items-center"><FaRegPlusSquare/>New Product</Link>
         </div>
       </div>

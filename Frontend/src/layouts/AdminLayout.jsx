@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../admin/components/Sidebar';
 import { TopBar } from '../admin/components/TopBar';
+import './adminlayout.css';
 
 const AdminLayout = () => {
     return (
