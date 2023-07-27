@@ -1,10 +1,12 @@
 import React from "react";
 import aboutImage from "./about page.jpg";
+import Header from "../../header-footer/header";
 
 const AboutPage = () => {
   const currentDate = new Date().toLocaleDateString();
 
-  return (
+  return (<>
+  <Header />
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto px-4 py-10 flex flex-col md:flex-row">
         <div className="md:w-1/2">
@@ -45,6 +47,7 @@ const AboutPage = () => {
         &copy; {currentDate} Smart Buy. All rights reserved.
       </footer>
     </div>
+    </>
   );
 };
 

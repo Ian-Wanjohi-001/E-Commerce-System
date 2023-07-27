@@ -25,16 +25,41 @@ const Header = () => {
     }
   };
 
-  const handleAddToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+  const handleAddToCart = async (product) => {
+    try {
+      // Make a POST request to add the item to the cart
+      const response = await fetch("http://localhost:3000/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ProductID: product.ProductID,
+          Quantity: 1,
+          CustomerID: customerId, // Replace 'customerId' with the authenticated user's ID
+          Name: product.ProductName,
+          Price: product.Price,
+          // Add any other required fields for creating a cart item
+        }),
+      });
+      const data = await response.json();
+      console.log("Item added to cart:", data);
+  
+      // Update the cart items using the state
+      setCartItems((prevCartItems) => [...prevCartItems, data]);
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+      // Handle any errors or show an error message to the user.
+    }
   };
+  
 
   return (
     <>
       <div className="header flex flex-col w-full fixed top-0 left-0">
-        <div className="top h-[45px] bg-black"></div>
-        <div className="bottom w-full h-[60px] flex flex-row justify-around items-center">
-          <ul className="flex items-center gap-[2rem] cursor-pointer">
+        <div className="top h-[25px] bg-black"></div>
+        <div className="bottom w-full h-[50px] flex flex-row justify-around items-center">
+          <ul className="flex items-center gap-[3rem] cursor-pointer">
             <NavLink to="/landingpage1">
               <li>
                 <span className="font-bold text-xl">

@@ -1,22 +1,49 @@
-import image2 from "/IMG-20230711-WA0079.jpg";
-const CartBox = () => {
+import React from "react";
+import Header from "../header-footer/header";
+import Footer from "../header-footer/footer";
+import CartBox from "../utilities/CartBox";
+import { useCart } from "../Cart/CartContext";
+
+const Checkout = () => {
+  const { cartItems, removeFromCart } = useCart();
+
+  const handleRemoveFromCart = (productId) => {
+    removeFromCart(productId);
+  };
+
+  // Calculate the total price of the products in the cart
+  const totalPrice = cartItems.reduce((total, item) => total + item.Price, 0);
+
   return (
-    <>
-      <div className="flex mt-4 border-b border-gray-400 pb-4">
-        <img src={image2} className="h-[129px] w-[133px] " alt="img" />
-        <div className="flex">
-          <div className="text flex flex-col pl-4">
-            <div className="title text-lg font-bold">Men's winter jacket</div>
-            <div className="size">Size:L</div>
-            <div className="size">Quantity:1</div>
-            <div className="price text-lg font-bold">$99</div>
+    <div>
+      <Header />
+      <div className="container mx-auto mt-8">
+        <h2 className="text-3xl font-bold mb-4">Checkout</h2>
+        {cartItems.length === 0 ? (
+          <p className="text-gray-600">Your cart is empty.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {cartItems.map((item) => (
+              <CartBox
+                key={item.ProductID}
+                item={item}
+                onRemove={() => handleRemoveFromCart(item.ProductID)}
+              />
+            ))}
           </div>
-          <div className=" pl-4 underline h-30 flex flex-col justify-end">
-            <p>Remove</p>
+        )}
+        {cartItems.length > 0 && (
+          <div className="flex justify-between items-center mt-8">
+            <div className="font-semibold text-xl">Total Price: ${totalPrice.toFixed(2)}</div>
+            <button className="px-4 py-2 bg-blue-500 text-white font-bold rounded">
+              Continue to Checkout
+            </button>
           </div>
-        </div>
+        )}
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
-export default CartBox;
+
+export default Checkout;

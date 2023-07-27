@@ -1,14 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../header-footer/header";
+import * as yup from "yup";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const validationSchema = yup.object().shape({
+    email: yup.string().email("Invalid email").required("Email is required"),
+    password: yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
+  });
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      await validationSchema.validate({ email, password }); // Validate the form data
+
       const response = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
@@ -17,11 +28,18 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      console.log("Logged in successfully:", data);
-      // Optionally, you can store the token in local storage or state for future use.
+
+      if (response.ok) {
+        console.log("Logged in successfully:", data);
+        toast.success("Logged in successfully");
+        navigate("/landingpage1"); // Navigate to the landing page after successful login
+      } else {
+        console.error("Error logging in:", data);
+        toast.error("Invalid email or password. Please try again.");
+      }
     } catch (error) {
-      console.error("Error logging in:", error);
-      // Handle any errors or show an error message to the user.
+      console.error("Error logging in:", error.message);
+      toast.error(error.message);
     }
   };
 

@@ -7,37 +7,6 @@ import Header from "../header-footer/header";
 import Page1 from "./pages/page1";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../Cart/CartContext";
-import four from '../../../assets/4.jpg';
-import five from '../../../assets/5.jpeg';
-import six from '../../../assets/6.jpg';
-import seven from '../../../assets/7.webp';
-import eight from '../../../assets/8.jpg';
-import nine from '../../../assets/9.jpg';
-import ten from '../../../assets/10.webp';
-import eleven from '../../../assets/11.jpeg';
-import twelve from '../../../assets/12.webp';
-import thirteen from '../../../assets/13.webp';
-import fourteen from '../../../assets/14.jpeg';
-import fifteen from '../../../assets/15.jpg';
-import sixteen from '../../../assets/16.jpeg';
-import seventeen from '../../../assets/17.webp';
-import eighteen from '../../../assets/18.jpeg';
-import nineteen from '../../../assets/19.jpg';
-import twenty from '../../../assets/20.avif';
-import twentyone from '../../../assets/21.jpeg';
-import twentytwo from '../../../assets/22.jpeg';
-import twentythree from '../../../assets/23.jpeg';
-import twentyfour from '../../../assets/24.jpeg';
-import twentyfive from '../../../assets/25.avif';
-import twentysix from '../../../assets/26.jpg';
-import twentyseven from '../../../assets/27.jpg';
-import twentyeight from '../../../assets/28.jpeg';
-import twentynine from '../../../assets/29.jpg';
-import thirty from '../../../assets/30.jpg';
-import thirtyone from '../../../assets/31.jpeg';
-import hoodie1 from '../../../assets/Hoodie1.jpg'
-import hoodie2 from '../../../assets/Hoodie2.jpg'
-import jacket1 from '../../../assets/Jacket1.jpg';
 
 const LandingPage1 = () => {
   const { cartItems, addToCart } = useCart();
@@ -71,43 +40,6 @@ const LandingPage1 = () => {
     localStorage.setItem("customerId", userDetails.customerId);
   }, [userDetails.customerId]);
 
-
-  const productImageNames = [
-    hoodie1, hoodie2,jacket1, four, five, six, seven, eight, nine, ten, eleven,
-    twelve,
-    thirteen,
-    fourteen,
-    fifteen,
-    sixteen,
-    seventeen,
-    eighteen,
-    nineteen,
-    twenty,
-    twentyone,
-    twentytwo,
-    twentythree,
-    twentyfour,
-    twentyfive,
-    twentysix,
-    twentyseven,
-    twentyeight,
-    twentynine,
-    thirty,
-    thirtyone
-  ];
-  
-
-  const mappedProductData = products.map((product, index) => {
-    const productImageName = productImageNames[index];
-    const imageUrl = productImageName;
-    return {
-      ...product,
-      imageUrl // Set the imageUrl instead of productImageName
-    };
-  });
-    
-  
-console.log(mappedProductData);
   const handleAddToCart = (product) => {
     addToCart(product);
     setCartCount((prevCartCount) => prevCartCount + 1);
@@ -123,10 +55,10 @@ console.log(mappedProductData);
       <div className="page-content mt-8rem">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {mappedProductData?.map((product) => (
+            {products.map((product) => (
               <div key={product.ProductID} className="bg-white p-4 shadow">
-               <img
-                  src={product.imageUrl}
+                <img
+                  src={product.ImageURL}
                   alt={product.ProductName}
                   className="w-full h-40 object-contain mb-4"
                 />
