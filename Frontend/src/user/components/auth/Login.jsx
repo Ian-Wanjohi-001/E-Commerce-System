@@ -1,49 +1,40 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from "../header-footer/header";
 import * as yup from "yup";
+import { loginUser } from "../../../redux/apiCall";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch();
 
   const validationSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Email is required"),
     password: yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
   });
+  validationSchema.validate({ email, password }); // Validate the form data
+
+ const userData = { email, password };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await validationSchema.validate({ email, password }); // Validate the form data
-
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("Logged in successfully:", data);
-        toast.success("Logged in successfully");
-        navigate("/landingpage1"); // Navigate to the landing page after successful login
-      } else {
-        console.error("Error logging in:", data);
-        toast.error("Invalid email or password. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error logging in:", error.message);
-      toast.error(error.message);
+    setIsLoading(true); // Set loading state to true
+    console.log(userData);
+    const success = await loginUser(dispatch, userData);
+    console.log(success)
+    if (success) {
+      navigate('/landingPage1');
     }
+    setIsLoading(false); 
   };
 
-  return (
+  return (<>
     <div className="grid grid-cols-3 gap-4 h-screen">
       <div className="col-start-2 col-span-1 flex flex-col items-center justify-center">
         <form className="flex flex-col gap-3 w-[80%]" onSubmit={handleLogin}>
@@ -81,6 +72,8 @@ const Login = () => {
       </div>
       <Header />
     </div>
+<ToastContainer />
+    </>
   );
 };
 
